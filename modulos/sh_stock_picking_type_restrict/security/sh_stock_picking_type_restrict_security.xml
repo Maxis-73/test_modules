@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_stock_picking_type_restrict_feature" model="res.groups">
+        <field name="name">Enable Stock Picking Type Restrict Feature</field>
+    </record>
+
+    <!-- User Rules -->
+    <record id="sh_operation_type_user_rule" model="ir.rule">
+        <field name="name">Operation Type Restriction For User</field>
+        <field name="model_id" search="[('model','=','stock.picking.type')]" model="ir.model"/>
+        <field name="domain_force">[('id','in',user.picking_ids.ids)]</field>
+        <field name="groups" eval="[(4, ref('sh_stock_picking_type_restrict.group_stock_picking_type_restrict_feature'))]"/>
+    </record>
+
+    <!-- Admin Rules -->
+    <record id="sh_operation_type_admin_rule" model="ir.rule">
+        <field name="name">Operation Type Restriction For Admin</field>
+        <field name="model_id" search="[('model','=','stock.picking.type')]" model="ir.model"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_erp_manager'))]"/>
+    </record>
+</odoo>

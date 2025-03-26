@@ -1,0 +1,48 @@
+<?xm     version="1.0"?>
+<odoo>
+    <!--     Add Users in Stock Picking Type form view  -->
+    <record id="sh_stock_picking_type_restrict_view" model="ir.ui.view">
+        <field name="name">stock.picking.type.form</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='warehouse_id']" position="after">
+                <field name="user_ids" widget="many2many_tags" groups="sh_stock_picking_type_restrict.group_stock_picking_type_restrict_feature" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--     Add Stock Picking Type in User form view  -->
+    <record id="sh_res_user_stock_picking_type_restrict_view" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <group>
+                    <field name="picking_ids" widget="many2many_tags" groups="sh_stock_picking_type_restrict.group_stock_picking_type_restrict_feature" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    
+
+     <!-- <record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">Operation types</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+            <form string="Operation Types">
+            <field name="picking_type_id" position="replace">
+               <field name="picking_type_id"
+                              context="{'restricted_picking_type_code': 'incoming'}"       />
+                              
+            </field>
+            </form>
+        </field>
+    </record> -->
+
+
+</odoo>
